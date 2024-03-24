@@ -28,7 +28,7 @@ def find_music():
     with open("music.csv", "w") as csv_file:
         # Adding heading; Separating by Tab character because some songs have other separators in them
         csv_file.write(
-            "Filename\tTitle\tArtist\tGenre\tYear\tComposer\tFilesize(MB)\tDuration\tfiletype\n"
+            "Filename\tTrackNum\tTitle\tArtist\tAlbum\tGenre\tYear\tComposer\tFilesize(MB)\tDuration\tFileType\n"
         )
 
         remove_search_location = search_location.split("\\")
@@ -48,7 +48,7 @@ def find_music():
 
                     found_album_dirs.append(clean_location)
 
-                    csv_file.write("\t\t" + clean_location + "\n")
+                    csv_file.write("\t\t\t" + clean_location + "\n")
 
                 for filetype in accepted_filetypes:
                     split_filetype = filetype.split(".")
@@ -65,10 +65,12 @@ def find_music():
                         convert_filesize = round(((filesize / 1024) / 1024), 1)
 
                         csv_file.write(
-                            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(
+                            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(
                                 file,
+                                metadata.track,
                                 metadata.title,
                                 metadata.artist,
+                                metadata.album,
                                 metadata.genre,
                                 metadata.year,
                                 metadata.composer,
