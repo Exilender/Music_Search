@@ -13,12 +13,16 @@ Outputs metadata to a .csv file that is delimited with the TAB character.
 
 
 ### Notes
-File stucture must look like:
-Root Directory:.................C:\Users\<username>\Music
-inner directories:..............ArtistName1\
-................................ArtistName1\Album1
-................................ArtistName1\Album2
-................................ArtistName1\Album2\song1.m4a
+File stucture must look like-
+
+Root Directory:
+C:\Users\<username>\Music
+
+Inner Directories:
+ArtistName1\
+ArtistName1\Album1
+ArtistName1\Album2
+ArtistName1\Album2\song1.m4a
 
 Full path to a specific song: C:\Users\<username>\Music\ArtistName1\Album2\song1.m4a
 

@@ -22,7 +22,7 @@ def find_music():
         Outputs metadata to a .csv file that is delimited with the TAB character """
     username = os.environ.get("USERNAME")
     search_location = "C:\\Users\\{}\\Music".format(username)
-    accepted_filetypes = ["*.mp3", "*.m4a", "*.flac"]
+    accepted_filetypes = ["*.flac", "*.mp3", "*.m4a", "*.wav", "*.wma"]
     found_album_dirs = []
 
     with open("music.csv", "w") as csv_file:
@@ -51,16 +51,21 @@ def find_music():
                     csv_file.write("\t\t\t" + clean_location + "\n")
 
                 for filetype in accepted_filetypes:
+                    # setting filetype attribute
                     split_filetype = filetype.split(".")
                     clean_filetype = split_filetype[-1]
+
                     if fnmatch.fnmatch(file, filetype):
+                        # getting metadata attributes
                         metadata = TinyTag.get(file_location)
 
+                        # making duration attr easier to read
                         duration = metadata.duration
                         convert_duration = time.strftime(
                             "%H:%M:%S", time.gmtime(duration)
                         )
 
+                        # converting filesize attr to MB
                         filesize = metadata.filesize
                         convert_filesize = round(((filesize / 1024) / 1024), 1)
 
