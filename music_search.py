@@ -11,7 +11,7 @@ import time
 from tinytag import TinyTag
 
 
-def find_music():
+def find_music(search_location):
     """ Searches for Music in the default Windows location, with folder/file structure of:
         root directory:     C:\\Users\\<username>\\Music
         inner directories:  ArtistName1\\
@@ -20,8 +20,9 @@ def find_music():
                             ArtistName1\\Album2\\song1.m4a
 
         Outputs metadata to a .csv file that is delimited with the TAB character """
-    username = os.environ.get("USERNAME")
-    search_location = "C:\\Users\\{}\\Music".format(username)
+    # username = os.environ.get("USERNAME")
+    # search_location = "C:\\Users\\{}\\Music".format(username)
+
     accepted_filetypes = ["*.flac", "*.mp3", "*.m4a", "*.wav", "*.wma"]
     found_album_dirs = []
 
