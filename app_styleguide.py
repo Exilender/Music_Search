@@ -1,9 +1,9 @@
+""" Style guide for Music Search App """
+
 import tkinter as tk
 import tkinter.ttk as ttk
 
-
 main_win = tk.Tk()
-
 
 main_win.configure(background="#F0C3C5")
 ttk.Style().theme_use("default")
@@ -17,15 +17,11 @@ style.configure(
     foreground="#410917",
     background="#FFEBEB",
 )
+
 style.configure(
-    "Version.TLabel",
-    font=("arial", 7),
-    anchor="center",
-    width=25,
-    foreground="#410917",
+    "Divider.TLabel",
     background="#F0C3C5",
 )
-style.configure("Divider.TLabel", background="#F0C3C5")
 
 style.configure(
     "TButton",
@@ -35,13 +31,3 @@ style.configure(
     foreground="white",
     background="#E8888E",
 )
-style.configure(
-    "Wider.TButton",
-    font=("arial", 10),
-    width=20,
-    relief="flat",
-    foreground="white",
-    background="#E8888E",
-)
-
-style.configure("TMenubutton", foreground="white", background="#E41E4F")

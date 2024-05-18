@@ -2,7 +2,6 @@
     Created by Dane (Sara) Wright
     03/24/2024
 
-    Terminal program that searches the default Windows Music directory for Artists, Albums, and Song metadata.
     Made with the intent of tracking down which Artists/Albums/Songs from my collection of Music has broken metadata"""
 
 import fnmatch
@@ -20,8 +19,6 @@ def find_music(search_location):
                             ArtistName1\\Album2\\song1.m4a
 
         Outputs metadata to a .csv file that is delimited with the TAB character """
-    # username = os.environ.get("USERNAME")
-    # search_location = "C:\\Users\\{}\\Music".format(username)
 
     accepted_filetypes = ["*.flac", "*.mp3", "*.m4a", "*.wav", "*.wma"]
     found_album_dirs = []
@@ -43,8 +40,7 @@ def find_music(search_location):
 
                 # This If block is trying to avoid 'User\Music' being first element in list/csv
                 if (
-                    (root_split[-2] and root_split[-1])
-                    != (remove_search_location[-2] and remove_search_location[-1])
+                    (root_split[-2] and root_split[-1]) != (remove_search_location[-2] and remove_search_location[-1])
                 ) and (clean_location not in found_album_dirs):
 
                     found_album_dirs.append(clean_location)
@@ -62,9 +58,7 @@ def find_music(search_location):
 
                         # making duration attr easier to read
                         duration = metadata.duration
-                        convert_duration = time.strftime(
-                            "%H:%M:%S", time.gmtime(duration)
-                        )
+                        convert_duration = time.strftime("%H:%M:%S", time.gmtime(duration))
 
                         # converting filesize attr to MB
                         filesize = metadata.filesize
@@ -85,7 +79,3 @@ def find_music(search_location):
                                 clean_filetype,
                             )
                         )
-
-
-if __name__ == "__main__":
-    find_music()
