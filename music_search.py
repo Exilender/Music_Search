@@ -21,48 +21,42 @@ def find_music(search_location):
         Outputs metadata to a .csv file that is delimited with the TAB character """
 
     accepted_filetypes = ["*.flac", "*.mp3", "*.m4a", "*.wav", "*.wma"]
-    found_album_dirs = []
+    last_album = None
 
     with open("music.csv", "w") as csv_file:
         # Adding heading; Separating by Tab character because some songs have other separators in them
         csv_file.write(
-            "Filename\tTrackNum\tTitle\tArtist\tAlbum\tGenre\tYear\tComposer\tFilesize(MB)\tDuration\tFileType\n"
+            "Filename\tTrackNum\tTitle\tArtist\tAlbum\tGenre\tYear\tComposer\tFilesize(MB)\tDuration\tFileExt\n"
         )
 
-        remove_search_location = search_location.split("\\")
+        # Going through specified Music directory, looking for Music files and getting the Metadata
+        for root, dirs, files in os.walk(search_location):
 
-        for root, dir, files in os.walk(search_location):
-            root_split = root.split("\\")
-            for file in files:
+            for filetype in accepted_filetypes:
+                for file in fnmatch.filter(files, filetype):
+                    location = os.path.join(root, file)
 
-                file_location = root + "\\" + file
-                clean_location = root_split[-2] + "\\" + root_split[-1]
+                    try:
+                        # Getting metadata attributes
+                        metadata = TinyTag.get(location)
 
-                # This If block is trying to avoid 'User\Music' being first element in list/csv
-                if (
-                    (root_split[-2] and root_split[-1]) != (remove_search_location[-2] and remove_search_location[-1])
-                ) and (clean_location not in found_album_dirs):
+                        if metadata.album != last_album:
+                            # Printing the directory for each album
+                            csv_file.write("\t\t\t" + root + "\n")
 
-                    found_album_dirs.append(clean_location)
+                            last_album = metadata.album
 
-                    csv_file.write("\t\t\t" + clean_location + "\n")
-
-                for filetype in accepted_filetypes:
-                    # setting filetype attribute
-                    split_filetype = filetype.split(".")
-                    clean_filetype = split_filetype[-1]
-
-                    if fnmatch.fnmatch(file, filetype):
-                        # getting metadata attributes
-                        metadata = TinyTag.get(file_location)
-
-                        # making duration attr easier to read
+                        # Making duration attr easier to read
                         duration = metadata.duration
                         convert_duration = time.strftime("%H:%M:%S", time.gmtime(duration))
 
-                        # converting filesize attr to MB
+                        # Converting filesize attr to MB
                         filesize = metadata.filesize
                         convert_filesize = round(((filesize / 1024) / 1024), 1)
+
+                        # Getting the file extension
+                        split_filetype = filetype.split(".")
+                        clean_filetype = split_filetype[-1]
 
                         csv_file.write(
                             "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(
@@ -79,3 +73,13 @@ def find_music(search_location):
                                 clean_filetype,
                             )
                         )
+
+                    except Exception as e:
+                        print("Error in getting metadata for music file.")
+
+
+if __name__ == "__main__":
+    starting_directory = input("Enter the Directory to Search for Music Metadata: ")
+
+    if os.path.exists(starting_directory):
+        find_music(starting_directory)

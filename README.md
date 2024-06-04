@@ -22,6 +22,6 @@ ArtistName1\Album2\song1.m4a
 
 
 ## Known Problems, Issues, And/Or Errors in the Program
-Need to test on Linux.
+Tested on Linux Mint 20.3. It works, but prints the tracks out of order.
 
 

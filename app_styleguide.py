@@ -19,11 +19,6 @@ style.configure(
 )
 
 style.configure(
-    "Divider.TLabel",
-    background="#F0C3C5",
-)
-
-style.configure(
     "TButton",
     font=("arial", 10),
     width=15,

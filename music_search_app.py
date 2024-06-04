@@ -10,7 +10,6 @@ def choose_folder():
     folder_path = filedialog.askdirectory()
 
     if folder_path:
-        folder_path = folder_path.replace("/", "\\")
         folder_ent.insert(tk.END, folder_path)
 
 
@@ -29,21 +28,13 @@ def gui():
     main_win.eval("tk::PlaceWindow . center")
     main_win.title("Music Search App")
 
-    ttk.Label(main_win, style="Divider.TLabel").grid(row=0, columnspan=2)
-
     ttk.Button(main_win, text="Browse", command=choose_folder).grid(row=1, columnspan=2)
-
-    ttk.Label(main_win, style="Divider.TLabel").grid(row=2, columnspan=2)
 
     ttk.Label(main_win, text="Folder:").grid(row=3, columnspan=2)
     folder_ent = ttk.Entry(main_win, textvariable=folder)
     folder_ent.grid(row=4, columnspan=2, ipadx=25)
 
-    ttk.Label(main_win, style="Divider.TLabel").grid(row=5, columnspan=2)
-
     ttk.Button(main_win, text="Output", command=output).grid(row=6, columnspan=2)
-
-    ttk.Label(main_win, style="Divider.TLabel").grid(row=7, columnspan=2)
 
     main_win.mainloop()
 
