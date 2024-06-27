@@ -11,7 +11,7 @@ from tinytag import TinyTag
 
 
 def find_music(search_location):
-    """ Searches for Music in the default Windows location, with folder/file structure of:
+    """ Searches for Music in the default Windows location, with folder/file structure similar to:
         root directory:     C:\\Users\\<username>\\Music
         inner directories:  ArtistName1\\
                             ArtistName1\\Album1
